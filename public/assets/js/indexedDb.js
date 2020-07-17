@@ -15,11 +15,11 @@ request.onsuccess = function (e) {
     scanDatabase();
   }
 };
-
+// log errors
 request.onerror = function (e) {
   console.log("Error: " + e.target.errorCode);
 };
-
+// store data to the database
 function recordData(record) {
   const transaction = db.transaction(["pending"], "readwrite");
   const store = transaction.objectStore("pending");
@@ -27,11 +27,12 @@ function recordData(record) {
   store.add(record);
 }
 
+// search through the database
 function scanDatabase() {
   const transaction = db.transaction(["pending"], "readwrite");
   const store = transaction.objectStore("pending");
   const fetchAll = store.fetchAll();
-
+  // when item found, post the result as a string
   fetchAll.onsuccess = function () {
     if (fetchAll.result.length > 0) {
       fetch("/api/transaction/bulk", {
@@ -52,5 +53,5 @@ function scanDatabase() {
   };
 }
 
-
+// add listener to see if server is online
 window.addEventListener("online", scanDatabase);

@@ -24,7 +24,7 @@ self.addEventListener("install", function (e) {
   self.skipWaiting();
 });
 
-// activate
+// activate cache
 self.addEventListener("activate", function (e) {
   e.waitUntil(
     caches.keys().then((keyList) => {
@@ -42,7 +42,7 @@ self.addEventListener("activate", function (e) {
   self.clients.claim();
 });
 
-// fetch
+// fetch data
 self.addEventListener("fetch", (e) => {
   if (e.request.url.includes("/api/")) {
     console.log("[Service Worker] Fetch(data)", e.request.url);
