@@ -52,4 +52,5 @@ function scanDatabase() {
   };
 }
 
+
 window.addEventListener("online", scanDatabase);
